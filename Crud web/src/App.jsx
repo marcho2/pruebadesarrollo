@@ -1,30 +1,22 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import Table from 'react-bootstrap/Table';
+import { useState } from 'react';
+import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import ListaDeCompras from "./components/listadecompra";
+
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  const [compras] = useState([
+    { id: 1, producto: 'pc gamer', precio: 1200, fecha_ingreso: '04/10/2024' },
+    { id: 2, producto: 'iphone', precio: 800, fecha_ingreso: '05/10/2024' },
+  ]);
   return (
     <>
-      <div>      
+      <div>
         <h1>Lista de compras</h1>
-        <table className="thead-dark">
-          <thead>
-            <tr>
-              <th scope="col">ID</th>
-              <th scope="col">Producto</th>
-              <th scope="col">Precio</th>{/* Ordenar por precio mayor a menor */}
-              <th scope="col">Ingreso</th> {/* Ordenar por fecha de ingreso*/}
-            </tr>
-          </thead>
-        </table>
+        <ListaDeCompras compras={compras} />
       </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
