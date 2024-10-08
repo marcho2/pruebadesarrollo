@@ -1,22 +1,26 @@
 import { useState } from 'react';
 import './App.css';
+import Table from 'react-bootstrap/Table';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import ListaDeCompras from "./components/listadecompra";
-
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import ListaDeCompras from './components/listadecompras';
+import CompraCreate from './components/compraCreate';
 
 function App() {
-  const [compras] = useState([
-    { id: 1, producto: 'pc gamer', precio: 1200, fecha_ingreso: '04/10/2024' },
-    { id: 2, producto: 'iphone', precio: 800, fecha_ingreso: '05/10/2024' },
-  ]);
-  return (
-    <>
-      <div>
-        <h1>Lista de compras</h1>
-        <ListaDeCompras compras={compras} />
-      </div>
-    </>
-  );
+    const [compras, setCompras] = useState([]);
+
+    return (
+        <div className="App">
+            <BrowserRouter>
+                <Routes>
+                    <Route path='/' element={< ListaDeCompras compras={compras} setCompras={setCompras} />}></Route>
+                    <Route path='/compra/create' element={<CompraCreate compras={compras} setCompras={setCompras} />}></Route>
+                </Routes>
+            </BrowserRouter>
+        </div>
+    );
 }
 
 export default App;
