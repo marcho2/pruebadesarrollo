@@ -3,6 +3,7 @@ import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import CompraEdit from "./compraEdit";
 
 const ListaDeCompras = ({ compras, setCompras }) => {
     const removeCompra = (id) => {
@@ -11,7 +12,10 @@ const ListaDeCompras = ({ compras, setCompras }) => {
             setCompras(nuevasCompras);
         }
     }
-
+    const navigate = useNavigate();
+    const loadEdit = (id) => {
+        navigate("/compra/edit/" + id);
+    }
     return (
         <div className="container">
             <div className="card">
@@ -40,6 +44,7 @@ const ListaDeCompras = ({ compras, setCompras }) => {
                                         <td>{compra.precio}</td>
                                         <td>{compra.fechaIngreso}</td>
                                         <td>
+                                            <button onClick={() => loadEdit(compra.id)} className="btn btn-success">Editar</button>
                                             <button onClick={() => removeCompra(compra.id)} className="btn btn-danger">Eliminar</button>
                                         </td>
                                     </tr>
