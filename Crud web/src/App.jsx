@@ -17,6 +17,7 @@ function App() {
                 <Routes>
                     <Route path='/' element={< ListaDeCompras compras={compras} setCompras={setCompras} />}></Route>
                     <Route path='/compra/create' element={<CompraCreate compras={compras} setCompras={setCompras} />}></Route>
+                    <Route path='/compra/edit/:id' element={<CompraEdit compras={compras} setCompras={setCompras} />} />
                 </Routes>
             </BrowserRouter>
         </div>
