@@ -6,4 +6,14 @@ const CompraEdit = ({ compras, setCompras }) => {
     const { id } = useParams();
     const navigate = useNavigate();
     const compraEditar = compras.find(compra => compra.id === parseInt(id));
+    const [producto, productoChange] = useState("");
+    const [precio, precioChange] = useState("");
+    const [fechaIngreso, fechaIngresoChange] = useState("");
+    useEffect(() => {
+        if (compraExistente) {
+            productoChange(compraExistente.producto);
+            precioChange(compraExistente.precio);
+            fechaIngresoChange(compraExistente.fechaIngreso);
+        }
+    }, [compraExistente]);
 }
