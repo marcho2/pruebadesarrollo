@@ -1,4 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -27,7 +28,7 @@ const ListaDeCompras = () => {
     const loadEdit = (id) => {
         navigate("/compra/edit/" + id);
     }
-    
+
     return (
         <div className="container">
             <div className="card">
@@ -50,17 +51,17 @@ const ListaDeCompras = () => {
                         </thead>
                         <tbody>
                             {compras && compras.map(compra => (
-                                    <tr key={compra.id}>
-                                        <td>{compra.id}</td>
-                                        <td>{compra.producto}</td>
-                                        <td>{compra.precio}</td>
-                                        <td>{compra.fechaIngreso}</td>
-                                        <td>
-                                            <button onClick={() => loadEdit(compra.id)} className="btn btn-primary">Editar</button>
-                                            <button onClick={() => removeCompra(compra.id)} className="btn btn-danger">Eliminar</button>
-                                        </td>
-                                    </tr>
-                                ))}
+                                <tr key={compra.id}>
+                                    <td>{compra.id}</td>
+                                    <td>{compra.producto}</td>
+                                    <td>{compra.precio}</td>
+                                    <td>{compra.fechaIngreso}</td>
+                                    <td>
+                                        <button onClick={() => loadEdit(compra.id)} className="btn btn-primary">Editar</button>
+                                        <button onClick={() => removeCompra(compra.id)} className="btn btn-danger">Eliminar</button>
+                                    </td>
+                                </tr>
+                            ))}
                         </tbody>
                     </table>
                 </div>
