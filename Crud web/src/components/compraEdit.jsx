@@ -1,34 +1,41 @@
+import { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import Button from 'react-bootstrap/Button';
+import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const CompraEdit = ({ compras, setCompras }) => {
+const CompraEdit = () => {
     const { id } = useParams();
-    const navigate = useNavigate();
-    const compraEditar = compras.find(compra => compra.id === parseInt(id));
     const [producto, productoChange] = useState("");
     const [precio, precioChange] = useState("");
     const [fechaIngreso, fechaIngresoChange] = useState("");
+    const navigate = useNavigate();
+
     useEffect(() => {
-        if (compraExistente) {
-            productoChange(compraExistente.producto);
-            precioChange(compraExistente.precio);
-            fechaIngresoChange(compraExistente.fechaIngreso);
-        }
-    }, [compraExistente]);
+        axios.get(`https://670dde27073307b4ee44b5e1.mockapi.io/productos/productos/${id}`)
+            .then(response => {
+                productoChange(response.data.producto);
+                precioChange(response.data.precio);
+                fechaIngresoChange(response.data.fechaIngreso);
+            })
+            .catch(error => console.log(error));
+    }, [id]);
+
     const handleSubmit = (e) => {
         e.preventDefault();
         const compraActualizada = {
-            id: parseInt(id),
             producto,
             precio,
-            fechaIngreso,
+            fechaIngreso
         };
-        const nuevasCompras = compras.map(compra => compra.id === parseInt(id) ? compraActualizada : compra);
-        setCompras(nuevasCompras);
-        alert('Compra actualizada exitosamente.');
-        navigate('/');
+
+        axios.put(`https://670dde27073307b4ee44b5e1.mockapi.io/productos/productos/${id}`, compraActualizada)
+            .then(() => {
+                alert('Compra actualizada exitosamente.');
+                navigate('/');
+            })
+            .catch(error => console.log(error));
     }
+
     return (
         <div className="row">
             <div className="offset-lg-3 col-lg-6">
@@ -38,37 +45,20 @@ const CompraEdit = ({ compras, setCompras }) => {
                             <h2>Editar Compra</h2>
                         </div>
                         <div className="card-body">
-                            <div className="row">
-
-                                <div className="col-lg-12">
-                                    <div className="form-group">
-                                        <label>Producto</label>
-                                        <input required value={producto} onChange={e => productoChange(e.target.value)} className="form-control"></input>
-                                    </div>
-                                </div>
-
-                                <div className="col-lg-12">
-                                    <div className="form-group">
-                                        <label>Precio</label>
-                                        <input type="number" value={precio} onChange={e => precioChange(e.target.value)} className="form-control"></input>
-                                    </div>
-                                </div>
-
-                                <div className="col-lg-12">
-                                    <div className="form-group">
-                                        <label>Fecha de Ingreso</label>
-                                        <input type="date" value={fechaIngreso} onChange={e => fechaIngresoChange(e.target.value)} className="form-control"></input>
-                                    </div>
-                                </div>
-
-                                <div className="col-lg-12">
-                                    <div className="form-group">
-                                        <button className="btn btn-success" type="submit">Guardar</button>
-                                        <Link to="/" className="btn btn-danger">Volver</Link>
-                                    </div>
-                                </div>
-
+                            <div className="form-group">
+                                <label>Producto</label>
+                                <input required value={producto} onMouseDown={e => valChange(true)} onChange={e => productoChange(e.target.value)} className="form-control"></input>
                             </div>
+                            <div className="form-group">
+                                <label>Precio</label>
+                                <input type="number" required value={precio} onMouseDown={e => valChange(true)} onChange={e => precioChange(e.target.value)} className="form-control"></input>
+                            </div>
+                            <div className="form-group">
+                                <label>Fecha de Ingreso</label>
+                                <input type="date" required value={fechaIngreso} onMouseDown={e => valChange(true)} onChange={e => fechaIngresoChange(e.target.value)} className="form-control"></input>
+                            </div>
+                            <button className="btn btn-success" type="submit">Guardar</button>
+                            <Link to="/" className="btn btn-danger">Volver</Link>
                         </div>
                     </div>
                 </form>
