@@ -4,6 +4,7 @@ import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './listadecompras.css';
 import CompraEdit from "./compraEdit";
 import axios from "axios";
 
@@ -37,7 +38,7 @@ const ListaDeCompras = () => {
                 </div>
                 <div className="card-body">
                     <div className="divbtn">
-                        <Link to="compra/create" className="btn btn-success">Agregar Nueva</Link>
+                        <Link to="compra/create" class="glow-on-hover" type="button">Agregar Nueva</Link>
                     </div>
                     <table className="table table-bordered">
                         <thead className="bg-dark text-white">
